@@ -1,36 +1,43 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 export function useWebSocketSnapshot() {
-  const [snapshot, setSnapshot] = useState<any>({
-    latency: 20.0,
+  const [snapshot, setSnapshot] = useState<any>(null);
+  const [isConnected, setIsConnected] = useState(false);
+  const ws = useRef<WebSocket | null>(null);
+
+  useEffect(() => {
+    const connect = () => {
+      // Force 127.0.0.1 for high-speed stability
+      ws.current = new WebSocket('ws://127.0.0.1:8001/ws');
+
+      ws.current.onopen = () => {
+        console.log("✅ WS Connected");
+        setIsConnected(true);
+      };
+
+      ws.current.onmessage = (event) => {
+        setSnapshot(JSON.parse(event.data));
+      };
+
+      ws.current.onclose = () => {
+        setIsConnected(false);
+        setTimeout(connect, 2000); // Reconnect loop
+      };
+    };
+
+    connect();
+    return () => ws.current?.close();
+  }, []);
+
+  // Safe fallback to prevent empty dashboard
+  const safeSnapshot = snapshot || {
+    latency: 0,
     decisions: [],
     bids: [],
     asks: [],
-    equity_history: Array(100).fill(1000), // Start with a flat line
-    current_equity: 1000,
-    sharpe: 1.45,
-    win_rate: 68.2,
-    total_steps: 0,
+    equity_history: Array(300).fill(1000),
     book: { imbalance: 0 }
-  });
-  const [isConnected, setIsConnected] = useState(false);
+  };
 
-  useEffect(() => {
-    const ws = new WebSocket('ws://localhost:8000/ws');
-
-    ws.onopen = () => setIsConnected(true);
-    ws.onmessage = (event) => {
-      try {
-        const data = JSON.parse(event.data);
-        setSnapshot(data);
-      } catch (e) {
-        console.error("Snapshot Parse Error", e);
-      }
-    };
-    ws.onclose = () => setIsConnected(false);
-
-    return () => ws.close();
-  }, []);
-
-  return { snapshot, isConnected };
+  return { snapshot: safeSnapshot, isConnected };
 }
