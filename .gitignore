@@ -1,0 +1,34 @@
+# Python caches
+__pycache__/
+*.py[cod]
+*$py.class
+
+# IDEs
+.vs/
+.vscode/
+
+# Build and Distribution
+build/
+dist/
+src/ui/dist/
+src/ui/node_modules/
+
+# Environment
+venv/
+.venv/
+env/
+bin/
+include/
+lib/
+share/
+
+# Data and Logs (Large Files)
+data/*.csv
+logs/
+models/
+
+# Compiled C++ / Python Extensions
+*.so
+*.pyd
+*.spec
+nanomatch_engine.*

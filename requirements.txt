@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+websockets
+gymnasium
+stable-baselines3
+torch
+pandas
+numpy
+pybind11

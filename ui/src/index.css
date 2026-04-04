@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background: #050505;
+  color: #00f2ff;
+  font-family: 'Space Grotesk', monospace;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button, input, select, textarea {
+  font-family: inherit;
+}
+
+/* uPlot Style Overrides */
+.uplot {
+  font-family: 'JetBrains Mono', monospace !important;
+  width: 100% !important;
+}
+
+/* Make the line glow */
+.u-over {
+  filter: drop-shadow(0 0 6px rgba(0, 255, 204, 0.6));
+}
+
+/* Hide X-axis line and make Y-axis subtle */
+.u-axis.u-off {
+  display: none;
+}
+
+.u-grid {
+  stroke-dasharray: 2, 4;
+}
+
+/* High performance canvas shadow */
+canvas {
+  image-rendering: pixelated;
+}
