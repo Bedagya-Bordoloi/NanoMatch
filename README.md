@@ -119,7 +119,7 @@ npm run dev
 
 ## 👤 Author
 **Bedagya Bordoloi**  
-*B.Tech in CSE (AI & ML) | VIT Andhra Pradesh*  
+*B.Tech in CSE (AI & ML) | VIT AP*  
 [LinkedIn](https://www.linkedin.com/in/bedagya-bordoloi-68725a2ab/) | [GitHub](https://github.com/Bedagya-Bordoloi)
 
 ---
